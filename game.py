@@ -3,6 +3,10 @@ from graphics import *
 # Use the funtions from utils.py as part the solution. 
 from utils import *
 
+SCREEN_WIDTH = 500
+SCREEN_HEIGHT = 500
+PLAYER_MOVE_DISTANCE = 100
+
 def main():
     """
     The main function of the game.
@@ -13,7 +17,7 @@ def main():
       If the user clicks on the quit button, close the window. 
     """
 
-    w = GraphWin("The Hunger Games", 500, 500)
+    w = GraphWin("The Hunger Games", SCREEN_WIDTH, SCREEN_HEIGHT)
     splash(w)
     game(w)
 
@@ -184,13 +188,13 @@ def delta(hero, key):
     # TODO: Add code here.
 
     if key == "Up":
-        dy -= 100
+        dy -= PLAYER_MOVE_DISTANCE
     elif key == "Down":
-        dy += 100
+        dy += PLAYER_MOVE_DISTANCE
     elif key == "Left":
-        dx -= 100
+        dx -= PLAYER_MOVE_DISTANCE
     elif key == "Right":
-        dx += 100
+        dx += PLAYER_MOVE_DISTANCE
         
     return (dx, dy)
 
@@ -228,13 +232,13 @@ def game(w):
         hy = cCenter.getY()
 
         if hx < 0:
-            hero.move(500, 0)
-        elif hx > 500:
-            hero.move(-500, 0)
+            hero.move(SCREEN_WIDTH, 0)
+        elif hx > SCREEN_WIDTH:
+            hero.move(-SCREEN_WIDTH, 0)
         elif hy < 0:
-            hero.move(0, 500)
-        elif hy > 500:
-            hero.move(0, -500)
+            hero.move(0, SCREEN_HEIGHT)
+        elif hy > SCREEN_HEIGHT:
+            hero.move(0, -SCREEN_HEIGHT)
         
 
 if __name__ == "__main__":
