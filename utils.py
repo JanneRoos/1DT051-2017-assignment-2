@@ -19,7 +19,7 @@ def randomColorFill(shape):
     Return value :: None
 
     Side effects:
-      Set the color of shgape to a random color.
+      Set the color of shape to a random color.
     '''
 
     shape.setFill(randomColor())
@@ -52,7 +52,8 @@ def show(objects, w):
       Draw all objects in window w.
     """
 
-    pass # TODO: Add code here
+    for x in objects:
+        x.draw(w)
 
 def hide(objects):
     """
@@ -63,7 +64,8 @@ def hide(objects):
       Undraw all objects.
     """
 
-    pass # TODO: Add code here.
+    for x in objects:
+        x.undraw()
 
 def grow(t):
     """Argument(s):
@@ -74,9 +76,11 @@ def grow(t):
 
     Return value: None.
     """
-
-    pass # TODO: Add code here.
-
+    n = 5
+    while n < 33:
+        t.setSize(n)
+        sleep(.008)
+        n += 1
 
 
 def fade(w):
@@ -102,6 +106,9 @@ def fade(w):
              'gray36', 'gray37', 'gray38', 'gray39', 'gray40']
 
     # TODO: Add code here.
+    for gray in grays:
+        w.setBackground(gray)
+        sleep(.025)
 
 
 def inCircle(p, c):
@@ -115,8 +122,19 @@ def inCircle(p, c):
     """
 
     # TODO: Add code here.
+    r = c.getRadius()
+    cCenter = c.getCenter()
 
-    return False # TODO: Change this.
+    dx = cCenter.getX() - p.getX()
+    dy = cCenter.getY() - p.getY()
+
+    d = dx**2 + dy**2
+
+    if d <=  r**2:
+        return True
+    else:
+        return False
+    
 
 def inRectangle(p, r):
     """
@@ -128,9 +146,13 @@ def inRectangle(p, r):
       True if p is inside the rectangle r, otherwise False.
     """
 
-    # TODO: Add code here.
+    p1 = r.p1
+    p2 = r.p2
 
-    return False # TODO: Change this. 
+    if p1.getX() <= p.getX() <= p2.getX() and p1.getY() <= p.getY() <= p2.getY():
+        return True
+    else:
+        return False
 
 
 def makeGrid():
@@ -147,7 +169,20 @@ def makeGrid():
     lines = []
 
     # TODO: Add code here.
+    n = 0
+
+    while n < 6:
+        l = Line(Point(0, n * 100), Point(500, n * 100))
+        l.setWidth(5)
+        l.setFill("blue")
+        m = Line(Point(n * 100, 0), Point(n * 100, 500))
+        m.setWidth(5)
+        m.setFill("blue")
+        lines.append(l)
+        lines.append(m)
+        n += 1
 
     return lines
 
-
+def yellow():
+    return "yellow"

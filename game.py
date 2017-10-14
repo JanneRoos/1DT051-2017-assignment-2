@@ -49,8 +49,72 @@ def splash(w):
     #    3) create (and return) a tuple with the play button circle and
     #       text. 
     #    4) Create (and return) a tuple with the quit button rectangle
-    #       and text. 
+    #       and text.
+    tSize = 18
 
+    def easterCircle():
+        p = Point(250, -125)
+        c = Circle(p, 250)
+        c.setFill("medium orchid")
+
+        return c
+
+    def hungerText():
+        t = Text(Point(250, 250), "The Hunger Games")
+        t.setStyle("bold")
+        t.setTextColor("yellow")
+        t.setSize(5)
+        return t
+
+    def playButton():
+        p = Point(150, 350)
+        c = Circle(p, 50)
+        c.setFill("red")
+
+        t = Text(Point(150, 350), "Play")
+        t.setStyle("bold")
+        t.setSize(tSize)
+
+        return (c, t)
+
+    def quitButton():
+        r = Rectangle(Point(280, 300), Point(380, 400))
+        r.setFill("red")
+        t = Text(Point(330, 350), "Quit")
+        t.setStyle("bold")
+        t.setSize(tSize)
+
+        return (r, t)
+
+    easterCircle = easterCircle()
+    hungerText = hungerText()
+    playButton = playButton()
+    quitButton = quitButton()
+
+    items = [easterCircle,
+             hungerText,
+             playButton[0],
+             quitButton[0],
+             playButton[1],
+             quitButton[1]]
+    
+    for x in items:
+        x.draw(w)
+    grow(hungerText)
+
+    while True:
+        point = w.getMouse()
+
+        if inCircle(point, playButton[0]):
+            hide(items)
+            fade(w)
+            game(w)
+        elif inRectangle(point, quitButton[0]):
+            hide(items)
+            fade(w)
+            w.close()
+        elif inCircle(point, easterCircle):
+            easterCircle.setFill(randomColor())
 
 
 def makeHero(p):
@@ -91,8 +155,17 @@ def gameOver(hero, food):
       Returns True if the center of the hero is the same as the center of the food,
       otherwise returns False. 
     """
-
-    return False # TODO: Change this.
+    hCenter = hero.getCenter()
+    fCenter = food.getCenter()
+    hx = hCenter.getX()
+    hy = hCenter.getY()
+    fx = fCenter.getX()
+    fy = fCenter.getY()
+    
+    if hx == fx and hy == fy:
+        return True
+    else:
+        return False
 
 
 def delta(hero, key):
@@ -110,6 +183,15 @@ def delta(hero, key):
 
     # TODO: Add code here.
 
+    if key == "Up":
+        dy -= 100
+    elif key == "Down":
+        dy += 100
+    elif key == "Left":
+        dx -= 100
+    elif key == "Right":
+        dx += 100
+        
     return (dx, dy)
 
 def game(w):
@@ -120,7 +202,7 @@ def game(w):
     Side effects:
       Let the user play the game by moving the hero around on the grid. 
     """
-
+    w.setBackground("white")
     grid = makeGrid()
 
     (h, f) = randomPoints()
@@ -141,6 +223,19 @@ def game(w):
 
         hero.move(dx, dy)
 
+        cCenter = hero.getCenter()
+        hx = cCenter.getX()
+        hy = cCenter.getY()
+
+        if hx < 0:
+            hero.move(500, 0)
+        elif hx > 500:
+            hero.move(-500, 0)
+        elif hy < 0:
+            hero.move(0, 500)
+        elif hy > 500:
+            hero.move(0, -500)
+        
 
 if __name__ == "__main__":
     main()
