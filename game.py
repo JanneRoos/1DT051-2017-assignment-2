@@ -145,7 +145,7 @@ def makeFood(p):
 
     f = Circle(p, 20)
     f.setWidth(10)
-    f.setFill("blue")
+    f.setFill("red")
 
     return f
 
