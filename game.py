@@ -116,7 +116,7 @@ def splash(w):
         elif inRectangle(point, quitButton[0]):
             hide(items)
             fade(w)
-            w.close()
+            quit()
         elif inCircle(point, easterCircle):
             easterCircle.setFill(randomColor())
 
